@@ -1,0 +1,14 @@
+.title-welcome {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #113e70;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 1px;
+    display: flex;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+  height: 100%;
+}

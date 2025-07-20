@@ -1,0 +1,61 @@
+<div class="overlay" *ngIf="visible">
+  <div class="dialog">
+    <h2 class="title">{{ data ? 'Editar Ingrediente' : 'Agregar Ingrediente' }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSave()" class="form">
+
+      <label>
+        Nombre:
+        <input type="text" formControlName="nombre" />
+        <div class="error" *ngIf="f['nombre'].touched && f['nombre'].invalid">
+          El nombre es obligatorio.
+        </div>
+      </label>
+
+      <label>
+        Unidad:
+        <select formControlName="unidad" class="form-control">
+          <option value="" disabled>Seleccione</option>
+          <option value="KILOGRAM">Kilogramo</option>
+          <option value="LITER">Litro</option>
+          <option value="PIECE">Unidad</option>
+        </select>
+        <div class="error" *ngIf="f['unidad'].touched && f['unidad'].invalid">
+          Debe seleccionar una unidad.
+        </div>
+      </label>
+      <label>
+        Valor por unidad:
+        <input type="number" formControlName="valor" />
+        <div class="error" *ngIf="f['valor'].touched && f['valor'].errors?.['required']">
+          El valor es obligatorio y debe ser un número.
+        </div>
+        <div class="error" *ngIf="f['valor'].errors?.['min']">
+          El valor debe ser mayor o igual a 0.
+        </div>
+      </label>
+
+      <label>
+        URL Imagen:
+        <input type="text" formControlName="imagen" />
+        <div class="error" *ngIf="f['imagen'].touched && f['imagen'].errors?.['formatoInvalido']">
+          Solo se permiten imágenes .jpg, .jpeg o .png.
+        </div>
+      </label>
+
+      <label>
+        Sitio de compra:
+        <input type="text" formControlName="sitioCompra" />
+        <div class="error" *ngIf="f['sitioCompra'].touched && f['sitioCompra'].invalid">
+          El sitio de compra es obligatorio.
+        </div>
+      </label>
+
+      <div class="actions">
+        <button type="button" class="cancel" (click)="onCancel()">Cancelar</button>
+        <button type="submit" [disabled]="form.invalid">Guardar</button>
+      </div>
+    </form>
+
+  </div>
+</div>

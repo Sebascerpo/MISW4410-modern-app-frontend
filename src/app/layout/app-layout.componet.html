@@ -1,0 +1,15 @@
+<header class="topbar">
+  <h1 class="topbar-title">Recetario</h1>
+  <button class="btn-menu" (click)="toggleSidebar()">☰</button>
+</header>
+
+<aside class="sidebar" [class.collapsed]="!sidebarOpen">
+  <nav>
+    <a routerLink="/home" routerLinkActive="active" (click)="maybeClose()">Inicio</a>
+    <a routerLink="/ingredientes" routerLinkActive="active" (click)="maybeClose()">Ingredientes</a>
+  </nav>
+</aside>
+
+<main class="content" (click)="maybeClose()">
+  <router-outlet></router-outlet>
+</main>
