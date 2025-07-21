@@ -1,59 +1,51 @@
-# MSWMODERNAPPFRONTEND
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
 
-## Development server
+# RECETARIO FRONT END
 
-To start a local development server, run:
+📄 Esta carpeta contiene el código fuente para el FRONTEND de RECETARIO APP. El proyecto fue realizado utilizando [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+
+
+## Tabla de contenido
+
+- [Pre-requisitos](#pre-requisitos)
+- [Ejecucion local](#ejecucion-local)
+- [Variables de entorno](#variables-de-entorno)
+- [Ejecución con Docker](#ejecución-con-docker)
+- [License](#license)
+
+
+## Pre-requisitos
+
+Antes de ejecutar cualquier comando en el proyecto, asegúrate de instalar todas las dependencias necesarias con:
+
+```bash
+npm install
+```
+
+## Ejecucion local
+
+Para empezar el servidor local de desarrollo run:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Variables de entorno
 
-## Code scaffolding
+En la carpeta environments configurar el archivo environment.ts (para desarrollo, con production: false), y environment.prod.ts (para produccion con   production: true). Ademas configurar el api y el apiToken con base en los datos del backend
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
+## Ejecución con Docker
+Correr
 ```bash
 ng build
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+Posteriormente
 ```bash
-ng test
+docker compose up --build   
 ```
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+## License
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Copyright © MISW4410 - Modernización de Software
