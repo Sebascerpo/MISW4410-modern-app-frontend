@@ -28,3 +28,28 @@ html, body {
   border-radius: 2px;
   margin: 1rem auto 2rem auto;
 }
+
+/* Estilos para las notificaciones */
+.success-snackbar {
+  background: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background: #f44336;
+  color: white;
+}
+
+.warning-snackbar {
+  background: #ff9800;
+  color: white;
+}
+
+.info-snackbar {
+  background: #2196f3;
+  color: white;
+}
+
+.mat-mdc-snack-bar-container {
+  margin-top: 20px;
+}

@@ -4,45 +4,64 @@
     <hr class="divider" />
   </div>
 
-  <table mat-table *ngIf="(ingredientes$ | async) as ingredientes" [dataSource]="ingredientes" class="mat-elevation-z8">
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef>Ingrediente</th>
-      <td mat-cell *matCellDef="let i">{{ i.nombre }}</td>
+  <!-- Mostrar skeleton durante la inicialización -->
+  <app-skeleton [isLoading]="!(shouldShowContent$ | async)"></app-skeleton>
+
+  <!-- Mostrar contenido solo después de la inicialización -->
+  <ng-container *ngIf="(shouldShowContent$ | async)">
+    <app-loading [isLoading]="(isLoading$ | async) || false" message="Cargando ingredientes..."></app-loading>
+
+    <!-- Mostrar tabla cuando hay ingredientes -->
+    <ng-container *ngIf="(ingredientes$ | async) as ingredientes">
+      <table mat-table *ngIf="ingredientes && ingredientes.length > 0; else emptyState" [dataSource]="ingredientes" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Ingrediente</th>
+          <td mat-cell *matCellDef="let i">{{ i.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="unidad">
+          <th mat-header-cell *matHeaderCellDef>Unidad</th>
+          <td mat-cell *matCellDef="let i">{{ i.unidad }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="valor">
+          <th mat-header-cell *matHeaderCellDef>Valor</th>
+          <td mat-cell *matCellDef="let i">{{ i.valor | currency }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sitioCompra">
+          <th mat-header-cell *matHeaderCellDef>Sitio de compra</th>
+          <td mat-cell *matCellDef="let i">{{ i.sitioCompra }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="imagen">
+          <th mat-header-cell *matHeaderCellDef>Imagen</th>
+          <td mat-cell *matCellDef="let i">
+            <img *ngIf="i.imagen" [src]="i.imagen" alt="Imagen" width="50" height="50" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creado">
+          <th mat-header-cell *matHeaderCellDef>Fecha de creación</th>
+          <td mat-cell *matCellDef="let i">{{ i.creado | date: 'short' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
     </ng-container>
 
-    <ng-container matColumnDef="unidad">
-      <th mat-header-cell *matHeaderCellDef>Unidad</th>
-      <td mat-cell *matCellDef="let i">{{ i.unidad }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="valor">
-      <th mat-header-cell *matHeaderCellDef>Valor</th>
-      <td mat-cell *matCellDef="let i">{{ i.valor | currency }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="sitioCompra">
-      <th mat-header-cell *matHeaderCellDef>Sitio de compra</th>
-      <td mat-cell *matCellDef="let i">{{ i.sitioCompra }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="imagen">
-      <th mat-header-cell *matHeaderCellDef>Imagen</th>
-      <td mat-cell *matCellDef="let i">
-        <img *ngIf="i.imagen" [src]="i.imagen" alt="Imagen" width="50" height="50" />
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="creado">
-      <th mat-header-cell *matHeaderCellDef>Fecha de creación</th>
-      <td mat-cell *matCellDef="let i">{{ i.creado | date: 'short' }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <!-- Template para estado vacío -->
+    <ng-template #emptyState>
+      <app-empty-state
+        title="No hay ingredientes registrados"
+        description="Actualmente no hay ingredientes en el sistema. Haz clic en 'Agregar ingrediente' para comenzar a registrar ingredientes."
+      ></app-empty-state>
+    </ng-template>
+  </ng-container>
 
   <div class="acciones">
-    <button mat-raised-button color="primary" (click)="agregar()">Agregar ingrediente</button>
+    <button mat-raised-button color="primary" (click)="abrirDialogo()">Agregar ingrediente</button>
   </div>
 
   <app-ingrediente-dialog

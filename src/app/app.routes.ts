@@ -1,15 +1,23 @@
 import { Routes } from '@angular/router';
-import { IngredientesComponent } from './pages/ingredientes/ingredientes.component';
 import { AppLayoutComponent } from './layout/app-layout.componet';
-import { HomeComponent } from './pages/home/home.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'ingredientes', component: IngredientesComponent },
+      {
+        path: 'home',
+        loadChildren: () => import('./pages/home/home.routes').then(m => m.HOME_ROUTES),
+        data: { preload: true }
+      },
+      {
+        path: 'ingredientes',
+        loadChildren: () => import('./pages/ingredientes/ingredientes.routes').then(m => m.INGREDIENTES_ROUTES),
+        data: { preload: true }
+      },
     ]
   },
   { path: '**', redirectTo: 'home' }

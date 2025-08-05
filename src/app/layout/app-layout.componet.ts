@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { RealtimeStatusComponent } from '../components/realtime-status/realtime-status.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterModule, RouterOutlet],
+  imports: [RouterModule, RouterOutlet, RealtimeStatusComponent],
   templateUrl: './app-layout.componet.html',
   styleUrls: ['./app-layout.component.css']
 })

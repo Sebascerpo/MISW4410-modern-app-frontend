@@ -1,6 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 function urlImagenValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -12,7 +19,17 @@ function urlImagenValidator(control: AbstractControl): ValidationErrors | null {
 @Component({
   selector: 'app-ingrediente-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule
+  ],
   templateUrl: './ingrediente-dialog.component.html',
   styleUrls: ['./ingrediente-dialog.component.css']
 })

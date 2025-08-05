@@ -1,61 +1,78 @@
 <div class="overlay" *ngIf="visible">
   <div class="dialog">
-    <h2 class="title">{{ data ? 'Editar Ingrediente' : 'Agregar Ingrediente' }}</h2>
+    <div class="dialog-header">
+      <mat-icon class="header-icon">add_circle</mat-icon>
+      <h2 class="dialog-title">{{ data ? 'Editar Ingrediente' : 'Agregar Ingrediente' }}</h2>
+      <button mat-icon-button class="close-button" (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSave()" class="form">
+    <mat-divider></mat-divider>
 
-      <label>
-        Nombre:
-        <input type="text" formControlName="nombre" />
-        <div class="error" *ngIf="f['nombre'].touched && f['nombre'].invalid">
-          El nombre es obligatorio.
-        </div>
-      </label>
+    <form [formGroup]="form" (ngSubmit)="onSave()" class="dialog-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre del ingrediente</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ej: Tomate, Harina, Azúcar" />
+        <mat-error *ngIf="f['nombre'].touched && f['nombre'].invalid">
+          El nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
 
-      <label>
-        Unidad:
-        <select formControlName="unidad" class="form-control">
-          <option value="" disabled>Seleccione</option>
-          <option value="KILOGRAM">Kilogramo</option>
-          <option value="LITER">Litro</option>
-          <option value="PIECE">Unidad</option>
-        </select>
-        <div class="error" *ngIf="f['unidad'].touched && f['unidad'].invalid">
-          Debe seleccionar una unidad.
-        </div>
-      </label>
-      <label>
-        Valor por unidad:
-        <input type="number" formControlName="valor" />
-        <div class="error" *ngIf="f['valor'].touched && f['valor'].errors?.['required']">
-          El valor es obligatorio y debe ser un número.
-        </div>
-        <div class="error" *ngIf="f['valor'].errors?.['min']">
-          El valor debe ser mayor o igual a 0.
-        </div>
-      </label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Unidad de medida</mat-label>
+        <mat-select formControlName="unidad">
+          <mat-option value="KILOGRAM">Kilogramo (kg)</mat-option>
+          <mat-option value="LITER">Litro (L)</mat-option>
+          <mat-option value="PIECE">Unidad (pza)</mat-option>
+          <mat-option value="GRAM">Gramo (g)</mat-option>
+          <mat-option value="MILLILITER">Mililitro (ml)</mat-option>
+        </mat-select>
+        <mat-error *ngIf="f['unidad'].touched && f['unidad'].invalid">
+          Debe seleccionar una unidad
+        </mat-error>
+      </mat-form-field>
 
-      <label>
-        URL Imagen:
-        <input type="text" formControlName="imagen" />
-        <div class="error" *ngIf="f['imagen'].touched && f['imagen'].errors?.['formatoInvalido']">
-          Solo se permiten imágenes .jpg, .jpeg o .png.
-        </div>
-      </label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Valor por unidad</mat-label>
+        <input matInput type="number" formControlName="valor" placeholder="0.00" />
+        <span matPrefix>$&nbsp;</span>
+        <mat-error *ngIf="f['valor'].touched && f['valor'].errors?.['required']">
+          El valor es obligatorio
+        </mat-error>
+        <mat-error *ngIf="f['valor'].errors?.['min']">
+          El valor debe ser mayor o igual a 0
+        </mat-error>
+      </mat-form-field>
 
-      <label>
-        Sitio de compra:
-        <input type="text" formControlName="sitioCompra" />
-        <div class="error" *ngIf="f['sitioCompra'].touched && f['sitioCompra'].invalid">
-          El sitio de compra es obligatorio.
-        </div>
-      </label>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>URL de imagen (opcional)</mat-label>
+        <input matInput formControlName="imagen" placeholder="https://ejemplo.com/imagen.jpg" />
+        <mat-icon matSuffix>image</mat-icon>
+        <mat-error *ngIf="f['imagen'].touched && f['imagen'].errors?.['formatoInvalido']">
+          Solo se permiten imágenes .jpg, .jpeg o .png
+        </mat-error>
+      </mat-form-field>
 
-      <div class="actions">
-        <button type="button" class="cancel" (click)="onCancel()">Cancelar</button>
-        <button type="submit" [disabled]="form.invalid">Guardar</button>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Sitio de compra</mat-label>
+        <input matInput formControlName="sitioCompra" placeholder="Ej: Supermercado, Tienda local" />
+        <mat-icon matSuffix>store</mat-icon>
+        <mat-error *ngIf="f['sitioCompra'].touched && f['sitioCompra'].invalid">
+          El sitio de compra es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <div class="dialog-actions">
+        <button mat-button type="button" (click)="onCancel()" class="cancel-button">
+          <mat-icon>cancel</mat-icon>
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="save-button">
+          <mat-icon>save</mat-icon>
+          {{ data ? 'Actualizar' : 'Guardar' }}
+        </button>
       </div>
     </form>
-
   </div>
 </div>
